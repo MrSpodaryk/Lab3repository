@@ -84,8 +84,8 @@ void product_of_rows_above_auxiliary_diagonal(int array[size_of_matrix][size_of_
             }
         }
         sum_of_product_of_rows_above_auxiliary_diagonal+=product_of_one_of_rows_above_auxiliary_diagonal;
-        printf("s=%d",product_of_one_of_rows_above_auxiliary_diagonal);
+        printf("product of one of rows above auxiliary diagonal = %d",product_of_one_of_rows_above_auxiliary_diagonal);
         printf("\n");
     }
-    printf("p=%d\n",sum_of_product_of_rows_above_auxiliary_diagonal);
+    printf("sum of product of rows above auxiliary diagonal = %d\n",sum_of_product_of_rows_above_auxiliary_diagonal);
 }
