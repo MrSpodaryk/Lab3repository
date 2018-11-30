@@ -1,84 +1,91 @@
-// my comment
 #include <stdio.h>
 #include <math.h>
-void print(int ar[5][5]);
-void scan(int ar[5][5]);
-void change(int ar[5][5]);
-void func(int ar[5][5]);
+
+#define size_of_matrix 5
+
+void print_array(int array[size_of_matrix][size_of_matrix]);
+void scan_array(int array[size_of_matrix][size_of_matrix]);
+void selection_sort_columns_by_increas(int array[size_of_matrix][size_of_matrix]);
+void product_of_rows_above_auxiliary_diagonal(int array[size_of_matrix][size_of_matrix]);
+
 int main()
 {
-    int ar[5][5];
-    scan(ar);
+    int array[size_of_matrix][size_of_matrix];
+    printf("введіть матрицю\n");
+    scan_array(array);
     printf("початкова матриця: \n");
-    print(ar);
-    change(ar);
+    print_array(array);
+    selection_sort_columns_by_increas(array);
     printf("нова матриця: \n");
-    print(ar);
-    func(ar);
+    print_array(array);
+    product_of_rows_above_auxiliary_diagonal(array);
 }
-void scan(int ar[5][5])
+
+void scan_array(int array[size_of_matrix][size_of_matrix])
 {
-    for(int i=0; i<5; i++) //ввід
+    for(int i=0; i<size_of_matrix; i++)
     {
-        for(int j=0; j<5; j++)
+        for(int j=0; j<size_of_matrix; j++)
         {
-            scanf("%d",&ar[i][j]);
+            scanf("%d",&array[i][j]);
         }
     }
 }
-void print(int ar[5][5])
+
+void print_array(int array[size_of_matrix][size_of_matrix])
 {
-    
-    for(int i=0; i<5; i++)
+    for(int i=0; i<size_of_matrix; i++)
     {
-        for(int j=0; j<5; j++)
+        for(int j=0; j<size_of_matrix; j++)
         {
-            printf("%d\t",ar[i][j]);
+            printf("%d\t",array[i][j]);
         }
         printf("\n");
     }
     printf("\n");
 }
-void change(int ar[5][5])
+
+void selection_sort_columns_by_increas(int array[size_of_matrix][size_of_matrix])
 {
-    int min, min_y, t;
-    for(int k=0; k<4; k++)
+    int min_value, coordinate_in_columns, temporary;
+    for(int k=0; k<(size_of_matrix-1); k++)
     {
-        for(int j=0; j<5; j++)
+        for(int j=0; j<size_of_matrix; j++)
         {
-            min=ar[k][j];
-            min_y=k;
-            for(int i=(k+1); i<5; i++)
+            min_value=array[k][j];
+            coordinate_in_columns=k;
+            for(int i=(k+1); i<size_of_matrix; i++)
             {
-                if(ar[i][j]<min)
+                if(array[i][j]<min_value)
                 {
-                    min=ar[i][j];
-                    min_y=i;
+                    min_value=array[i][j];
+                    coordinate_in_columns=i;
                 }
             }
-            t=ar[k][j];
-            ar[k][j]=ar[min_y][j];
-            ar[min_y][j]=t;
+            temporary=array[k][j];
+            array[k][j]=array[coordinate_in_columns][j];
+            array[coordinate_in_columns][j]=temporary;
         }
     }
     printf("\n");
 }
-void func(int ar[5][5])
+
+void product_of_rows_above_auxiliary_diagonal(int array[size_of_matrix][size_of_matrix])
 {
-    int s=1, p=0;
-    for(int i=0; i<5; i++)
+    int sum_of_product_of_rows_above_auxiliary_diagonal=0;
+    for(int i=0; i<size_of_matrix; i++)
     {
-        s=1;
-        for(int j=0; j<5; j++)
+        int product_of_one_of_rows_above_auxiliary_diagonal=1;
+        for(int j=0; j<size_of_matrix; j++)
         {
-            if((i+j)<4)
+            if((i+j)<(size_of_matrix-2))
             {
-                s*=ar[i][j];
+                product_of_one_of_rows_above_auxiliary_diagonal*=array[i][j];
             }
         }
-        p+=s;
-        printf("s=%d",s);
+        sum_of_product_of_rows_above_auxiliary_diagonal+=product_of_one_of_rows_above_auxiliary_diagonal;
+        printf("s=%d",product_of_one_of_rows_above_auxiliary_diagonal);
         printf("\n");
     }
-    printf("p=%d",p);
+    printf("p=%d\n",sum_of_product_of_rows_above_auxiliary_diagonal);
 }
